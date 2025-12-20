@@ -53,19 +53,7 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
-        
-    - name: Free disk space
-      run: |
-        echo "=== Before clean ==="
-        df -h
-        sudo rm -rf /usr/share/dotnet
-        sudo rm -rf /opt/ghc
-        sudo rm -rf /usr/local/share/boost
-        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-        docker system prune -af --volumes || true
-        echo "=== After clean ==="
-        df -h
-        
+               
     - name: Clone source code
       working-directory: /workdir
       run: |
