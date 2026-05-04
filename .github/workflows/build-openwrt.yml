@@ -1,4 +1,3 @@
-#
 # Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
 #
 # This is free software, licensed under the MIT License.
@@ -32,6 +31,7 @@ env:
   UPLOAD_WETRANSFER: false
   UPLOAD_RELEASE: false
   TZ: Asia/Shanghai
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  # Add support for Node.js 24
 
 jobs:
   build:
@@ -40,6 +40,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@main
+
+    - name: Setup Node.js 24
+      uses: actions/setup-node@v3
+      with:
+        node-version: '24'  # Ensures Node.js 24 is used
 
     - name: Initialization environment
       env:
@@ -53,7 +58,7 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
-               
+
     - name: Clone source code
       working-directory: /workdir
       run: |
